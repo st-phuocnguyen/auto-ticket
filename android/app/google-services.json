@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "465302228955",
+    "project_id": "thu-phi-do-xe-29b78",
+    "storage_bucket": "thu-phi-do-xe-29b78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465302228955:android:f137cc5f0f80df66e261fe",
+        "android_client_info": {
+          "package_name": "com.example.camera_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465302228955-teh8fm8cqmabtpmrgfo8h2d2dhb50fb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQIbzZRB01-Ybh_C8CjCokiC5YwnT6yQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465302228955-teh8fm8cqmabtpmrgfo8h2d2dhb50fb4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:465302228955:android:239d6e22d95ae214e261fe",
+        "android_client_info": {
+          "package_name": "com.example.thuphidoxe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "465302228955-7v1b6htgvk3544d4d6htflvt37o05apq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.thuphidoxe",
+            "certificate_hash": "26e02534a867578cecbbe24ac57bd978a086f378"
+          }
+        },
+        {
+          "client_id": "465302228955-teh8fm8cqmabtpmrgfo8h2d2dhb50fb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQIbzZRB01-Ybh_C8CjCokiC5YwnT6yQs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "465302228955-teh8fm8cqmabtpmrgfo8h2d2dhb50fb4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
