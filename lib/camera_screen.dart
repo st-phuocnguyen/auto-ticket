@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:async/async.dart';
 import 'package:camera_test/address.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'dart:io' as di;
@@ -28,6 +30,7 @@ class _CameraScreen extends State<CameraScreen> {
   static const apiKey = "1f8726ca89a0c445f5bc8df389eb2908";
   final _licenseController = TextEditingController();
   final _priceController = TextEditingController();
+  String license = "";
 
   final _picker = ImagePicker();
   // Implementing the image picker
@@ -38,11 +41,7 @@ class _CameraScreen extends State<CameraScreen> {
       setState(() {
         _image = File(pickedImage.path);
       });
-      Future.delayed(const Duration(seconds: 5), () {
-        setState(() {
-          _licenseController.text = "30A12893";
-        });
-      });
+      _makePostRequest();
     }
   }
 
@@ -59,7 +58,7 @@ class _CameraScreen extends State<CameraScreen> {
 
       final url = await ref.getDownloadURL();
 
-      await FirebaseFirestore.instance.collection("Users").doc("2").update(
+      await FirebaseFirestore.instance.collection("Users").doc("1").update(
         {
           'client': FieldValue.arrayUnion([
             {
@@ -109,13 +108,33 @@ class _CameraScreen extends State<CameraScreen> {
 
     String url =
         'https://api.map4d.vn/sdk/v2/geocode?key=$apiKey&location=${_currentPosition!.latitude},${_currentPosition!.longitude}';
-    Response response = await http.get(Uri.parse(url));
+    var response = await http.get(Uri.parse(url));
     String json = response.body;
     Map<String, dynamic> map = jsonDecode(json);
     Address address = Address.fromJson(map);
     setState(() {
       _currentAddress = address.result![0].address;
     });
+  }
+
+  _makePostRequest() async {
+    var request = http.MultipartRequest(
+        "POST", Uri.parse("http://192.168.1.110:5555/div"));
+    var pic = http.MultipartFile.fromBytes(
+        'image', _image!.readAsBytesSync().buffer.asInt8List(),
+        filename: "image_recognized.jrpg");
+    request.files.add(pic);
+    var response = await request.send();
+
+    var responseData = await response.stream.toBytes();
+    var result = String.fromCharCodes(responseData);
+
+    print(result);
+    if (response.statusCode == 200) {
+      setState(() {
+        _licenseController.text = result;
+      });
+    }
   }
 
   String dropdownValue = 'Xe Máy';
@@ -149,7 +168,7 @@ class _CameraScreen extends State<CameraScreen> {
                 ),
                 const SizedBox(height: 10),
                 Image.network(
-                    "http://momofree.apimienphi.com/api/QRCode?phone=0931275909&amount=${_priceController.text}& note=${_priceController.text}VND"),
+                    "http://momofree.apimienphi.com/api/QRCode?phone=0329489007&amount=${_priceController.text}& note=Thu phí giữ xe công cộng ${_priceController.text}VND"),
               ],
             ),
           ),
